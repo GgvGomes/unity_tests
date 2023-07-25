@@ -1,4 +1,4 @@
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
 import App from "./App";
 
 // test("sum", () => {
@@ -39,6 +39,22 @@ describe("App Component", () => {
     // debug();
 
     // expect(getByText("Novo Item")).toBeInTheDocument();
-    expect(await findByText("Novo Item")).toBeInTheDocument();
+    // expect(await findByText("Novo Item")).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(getByText("Novo Item")).toBeInTheDocument();
+    })
+  });
+
+  it("should be able to remove item", async () => {
+    const { getByText, getAllByText } = render(<App />);
+
+    const removeButton = getAllByText("Remover");
+    fireEvent.click(removeButton[0]);
+
+    await waitForElementToBeRemoved(() => {
+      // Passo só o elemento que espero que seja removido
+      return getByText("Diego"); 
+    });
   });
 });
