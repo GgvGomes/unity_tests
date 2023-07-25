@@ -28,11 +28,14 @@ describe("App Component", () => {
   });
 
   it("should be able to add new item", () => {
-    const { getByText, debug } = render(<App />);
+    const { getByText, getByPlaceholderText } = render(<App />);
 
     // debug();
 
+    const input = getByPlaceholderText("Novo Item");
     const addButton = getByText("Adicionar");
+    
+    fireEvent.change(input, { target: { value: "Novo Item" } });
     fireEvent.click(addButton);
 
     // debug();
