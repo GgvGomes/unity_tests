@@ -4,6 +4,10 @@ function App() {
   // npx jest --init 
   // npm i ts-node -D
   // npm i @types/jest -D
+  // npm i @swc/core @swc/jest -D
+  // npm install -D jest-environment-jsdom
+  // npm test --watchAll
+  // Ver a Doc -> Video no min 30
 
   return (
     <>
