@@ -11,15 +11,24 @@ function App() {
   // npm i @testing-library/jest-dom
   // npm test --watchAll
   // Ver a Doc -> Video no min 30
-  
-  const [newItem, setNewItem] = useState<string>(""); 
+
+  const [newItem, setNewItem] = useState<string>("");
   const [list, setList] = useState<string[]>(["Diego", "Robson", "Vini"]);
 
-  const addToList = () => setList([...list, newItem]);
+  const addToList = () => {
+    setTimeout(() => {
+      setList([...list, newItem]);
+    }, 500);
+  };
 
   return (
     <>
-      <input type="text" placeholder="Novo Item" value={newItem} onChange={e => setNewItem(e.target.value)} />
+      <input
+        type="text"
+        placeholder="Novo Item"
+        value={newItem}
+        onChange={(e) => setNewItem(e.target.value)}
+      />
 
       <button onClick={addToList}>Adicionar</button>
 

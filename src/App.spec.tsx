@@ -15,8 +15,6 @@ import App from "./App";
 //   expect(getByText("Hello World")).toHaveProperty('className', 'test');
 // });
 
-
-
 describe("App Component", () => {
   // it é de uma forma mais semantica
   it("list should have the names inside it", () => {
@@ -27,19 +25,20 @@ describe("App Component", () => {
     expect(getByText("Vini")).toBeInTheDocument();
   });
 
-  it("should be able to add new item", () => {
-    const { getByText, getByPlaceholderText } = render(<App />);
+  it("should be able to add new item", async () => {
+    const { getByText, getByPlaceholderText, findByText } = render(<App />);
 
     // debug();
 
     const input = getByPlaceholderText("Novo Item");
     const addButton = getByText("Adicionar");
-    
+
     fireEvent.change(input, { target: { value: "Novo Item" } });
     fireEvent.click(addButton);
 
     // debug();
 
-    expect(getByText("Novo Item")).toBeInTheDocument();
+    // expect(getByText("Novo Item")).toBeInTheDocument();
+    expect(await findByText("Novo Item")).toBeInTheDocument();
   });
 });
