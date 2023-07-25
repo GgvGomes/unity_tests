@@ -9,6 +9,10 @@
 // npm test --watchAll
 // Ver a Doc -> Video no min 30
 
+// Ainda faltam Mocking API Calls
+// Spies & Stubs
+// Context (wrapper on render)
+
 import { List } from "./components/list";
 
 function App() {

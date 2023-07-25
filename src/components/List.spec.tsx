@@ -15,20 +15,31 @@ import { List } from "./list";
 //   expect(getByText("Hello World")).toHaveProperty('className', 'test');
 // });
 
+// Get
+// Quando mais de um elemento satisfaz a condição, retorna o erro
+
 describe("List Component", () => {
   // it é de uma forma mais semantica
-  it("list should have the names inside it", () => {
-    const { getByText } = render(<List initialList={['Diego', 'Robson', 'Vini']} />);
+  it("list should have the names inside it", async () => {
+    const { getByText, rerender, queryByText } = render(<List initialList={['Diego', 'Robson', 'Vini']} />);
 
     expect(getByText("Diego")).toBeInTheDocument();
     expect(getByText("Robson")).toBeInTheDocument();
     expect(getByText("Vini")).toBeInTheDocument();
+
+    // await rerender(<List initialList={['Diego', 'Robson']} />);
+    // Rerender n rolou
+
+    // expect(getByText("Diego")).toBeInTheDocument();
+    // expect(getByText("Robson")).toBeInTheDocument();
+    
+    // await waitFor(() => {
+    //   expect(queryByText("Vini")).not.toBeInTheDocument();
+    // });
   });
 
   it("should be able to add new item", async () => {
     const { getByText, getByPlaceholderText, findByText } = render(<List initialList={[]} />);
-
-    // debug();
 
     const input = getByPlaceholderText("Novo Item");
     const addButton = getByText("Adicionar");
