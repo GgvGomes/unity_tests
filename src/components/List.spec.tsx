@@ -1,5 +1,5 @@
 import { render, fireEvent, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
-import App from "./App";
+import { List } from "./list";
 
 // test("sum", () => {
 //   expect(1 + 2).toBe(3);
@@ -15,10 +15,10 @@ import App from "./App";
 //   expect(getByText("Hello World")).toHaveProperty('className', 'test');
 // });
 
-describe("App Component", () => {
+describe("List Component", () => {
   // it é de uma forma mais semantica
   it("list should have the names inside it", () => {
-    const { getByText } = render(<App />);
+    const { getByText } = render(<List initialList={['Diego', 'Robson', 'Vini']} />);
 
     expect(getByText("Diego")).toBeInTheDocument();
     expect(getByText("Robson")).toBeInTheDocument();
@@ -26,7 +26,7 @@ describe("App Component", () => {
   });
 
   it("should be able to add new item", async () => {
-    const { getByText, getByPlaceholderText, findByText } = render(<App />);
+    const { getByText, getByPlaceholderText, findByText } = render(<List initialList={[]} />);
 
     // debug();
 
@@ -47,14 +47,19 @@ describe("App Component", () => {
   });
 
   it("should be able to remove item", async () => {
-    const { getByText, getAllByText } = render(<App />);
+    const { getByText, getAllByText, queryByText } = render(<List initialList={['Diego']} />);
 
     const removeButton = getAllByText("Remover");
     fireEvent.click(removeButton[0]);
 
-    await waitForElementToBeRemoved(() => {
+    // await waitForElementToBeRemoved(() => {
+    //   // Passo só o elemento que espero que seja removido
+    //   return getByText("Diego"); 
+    // });
+
+    await waitFor(() => {
       // Passo só o elemento que espero que seja removido
-      return getByText("Diego"); 
+      expect(queryByText("Diego")).not.toBeInTheDocument();
     });
   });
 });
